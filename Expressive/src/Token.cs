@@ -22,10 +22,10 @@ namespace Expressive
         }
 	}
 
-	enum TokenType {
+	public enum TokenType {
 		// Common
 		Identifier,
-		Index, // .
+		Dot, // .
 		Separator, // ; \n
 		Assignment, // =
 		LeftParen, RightParen, // ( )
