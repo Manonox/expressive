@@ -28,7 +28,7 @@ namespace Expressive
 		Dot, // .
 		Separator, // ; \n
 		Assignment, // =
-		LeftParen, RightParen, // ( )
+		LeftParenthesis, RightParenthesis, // ( )
 		LeftBrace, RightBrace, // { }
 		LeftBracket, RightBracket, // [ ]
 		Colon, RightArrow, // : ->

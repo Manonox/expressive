@@ -272,10 +272,10 @@ namespace Expressive
 
 				case '(':
 					Advance();
-					return PushToken(TokenType.LeftParen);
+					return PushToken(TokenType.LeftParenthesis);
 				case ')':
 					Advance();
-					return PushToken(TokenType.RightParen);
+					return PushToken(TokenType.RightParenthesis);
 				case '{':
 					Advance();
 					return PushToken(TokenType.LeftBrace);
