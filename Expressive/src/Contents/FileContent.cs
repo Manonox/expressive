@@ -1,6 +1,6 @@
 namespace Expressive
 {
-	class FileContent: IContent
+	public class FileContent: IContent
 	{
 		public string Name { get; }
 		public int Length { get; }

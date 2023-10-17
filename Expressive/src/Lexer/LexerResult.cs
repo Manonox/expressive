@@ -3,7 +3,7 @@ namespace Expressive
 	partial class Lexer
 	{
         public class Result
-                {
+        {
 			public bool IsError { get; set; }
 			public List<Token> Tokens { get; set; } = new List<Token>();
 			public Error? Error { get; set; }

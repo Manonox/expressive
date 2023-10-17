@@ -2,7 +2,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Expressive
 {
-	class StringContent: IContent
+	public class StringContent: IContent
 	{
 		public string Name { get; } = "string";
 		public int Length { get; }
