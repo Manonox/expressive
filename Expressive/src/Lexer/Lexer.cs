@@ -401,6 +401,11 @@ namespace Expressive
 						return PushToken(TokenType.Range);
 					}
 					return PushToken(TokenType.Dot);
+				
+				
+				case ',':
+					Advance();
+					return PushToken(TokenType.Comma);
 
 
 				case '+':

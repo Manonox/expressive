@@ -25,7 +25,7 @@ namespace Expressive
 	public enum TokenType {
 		// Common
 		Identifier,
-		Dot, // .
+		Dot, Comma, // . ,
 		Separator, // ; \n
 		Assignment, // =
 		LeftParenthesis, RightParenthesis, // ( )
@@ -55,11 +55,13 @@ namespace Expressive
 		
 		Add, Sub, // + -
 		Mul, Div, // * /
+		Mod, // %
 		Pow, // **
 		Increment, Decrement, // ++ --
 
 		AddAssignment, SubAssignment, // += -=
 		MulAssignment, DivAssignment, // *= /=
+		ModAssignment, // %=
 		PowAssignment, // **=
 
 
