@@ -27,7 +27,7 @@ namespace Expressive
 			CurrentPosition = new Position(Content);
 			TokenBeginPosition = CurrentPosition;
 			TokenList = new List<Token>();
-        }
+		}
 
 
 		private Token CreateToken(TokenType type, string? value = null, Position? position = null)
@@ -146,7 +146,7 @@ namespace Expressive
 			{
 				PushToken(TokenType.Int, builder.ToString());
 				if (waitingForFractDigits)
-					PushToken(TokenType.Index, null, dotPosition);
+					PushToken(TokenType.Dot, null, dotPosition);
 				return null;
 			}
 
@@ -400,7 +400,7 @@ namespace Expressive
 						Advance();
 						return PushToken(TokenType.Range);
 					}
-					return PushToken(TokenType.Index);
+					return PushToken(TokenType.Dot);
 
 
 				case '+':
