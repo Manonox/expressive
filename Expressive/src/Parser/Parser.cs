@@ -508,8 +508,13 @@ namespace Expressive
             if (CurrentTokenType != TokenType.LeftParenthesis)
                 return result.Fail(CurrentPosition, "Expected '('");
             Advance();
-            result.Register(BindingList());
-            if (result.IsError) return result;
+            
+            if (CurrentTokenType == TokenType.Identifier)
+            {
+                result.Register(BindingList());
+                if (result.IsError) return result;
+            }
+
             if (CurrentTokenType != TokenType.RightParenthesis)
                 return result.Fail(CurrentPosition, "Expected ')' (to close '(' at " + leftParenthesisPosition + ")");
             Advance();
