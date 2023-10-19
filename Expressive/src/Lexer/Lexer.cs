@@ -44,41 +44,6 @@ namespace Expressive
 			return null;
 		}
 
-		private void ReduceTokens()
-		{
-			// Remove Leading Separators
-			for (int i = 0; i < TokenList.Count; i++)
-			{
-				if (TokenList[i].Type != TokenType.Separator) break;
-				TokenList.RemoveAt(i);
-				i--;
-			}
-
-			// Remove Trailing Separators
-			for (int i = TokenList.Count - 1; i >= 0; i--)
-			{
-				if (TokenList[i].Type != TokenType.Separator) break;
-				TokenList.RemoveAt(i);
-			}
-
-			// Remove Duplicate Separators
-			{
-				var i = TokenList.Count - 1;
-				var removing = false;
-				while (i >= 0)
-				{
-					var isSeparator = TokenList[i].Type == TokenType.Separator;
-					if (removing && isSeparator)
-					{
-						TokenList.RemoveAt(i);
-					}
-					i--;
-					removing = isSeparator;
-				}
-			}
-		}
-
-
 		public Result Parse()
 		{
 			CurrentPosition = new Position(Content);
@@ -97,8 +62,9 @@ namespace Expressive
 				}
 			}
 
-			ReduceTokens();
-
+			
+			PushToken(TokenType.Separator);
+			PushToken(TokenType.EOF);
 			return new Result(TokenList);
 		}
 
@@ -175,6 +141,7 @@ namespace Expressive
 				case "null": return PushToken(TokenType.Null);
 
 				case "is": return PushToken(TokenType.Is);
+				case "self": return PushToken(TokenType.Self);
 				case "in": return PushToken(TokenType.In);
 
 				case "fn": return PushToken(TokenType.Fn);
@@ -183,6 +150,7 @@ namespace Expressive
 				case "if": return PushToken(TokenType.If);
 				case "else": return PushToken(TokenType.Else);
 
+				case "loop": return PushToken(TokenType.Loop);
 				case "for": return PushToken(TokenType.For);
 				case "while": return PushToken(TokenType.While);
 				case "break": return PushToken(TokenType.Break);

@@ -23,6 +23,8 @@ namespace Expressive
 	}
 
 	public enum TokenType {
+		EOF,
+
 		// Common
 		Identifier,
 		Dot, Comma, // . ,
@@ -43,8 +45,9 @@ namespace Expressive
 		Is, In,
 		Fn, Return,
 		If, Else,
-		For, While,
+		For, While, Loop,
 		Break, Continue,
+		Self,
 
 
 		// Operators
