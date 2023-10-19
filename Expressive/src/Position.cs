@@ -53,7 +53,8 @@ namespace Expressive
             Index++;
             IncrementLineColumn();
             IsEOF = Index >= Content.Length;
-            CurrentChar = Content.GetChar(Index);
+            if (!IsEOF)
+                CurrentChar = Content.GetChar(Index);
         }
 
 

@@ -11,6 +11,7 @@ namespace Expressive
 		{
 			Name = Path.GetFileName(path);
 			Data = File.ReadAllText(path);
+			Data = Data.ReplaceLineEndings("\n");
 			Length = Data.Length;
         }
 

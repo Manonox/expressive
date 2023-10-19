@@ -12,6 +12,7 @@ namespace Expressive
         public StringContent(string s)
 		{
 			Data = s;
+			Data = Data.ReplaceLineEndings("\n");
 			Length = Data.Length;
         }
 
