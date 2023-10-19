@@ -147,7 +147,7 @@ namespace Expressive
                     return result;
 
                 if (CurrentTokenType != TokenType.Separator)
-                    return result.Fail(CurrentPosition, "Expected ';' or a newline");
+                    return result.Fail(CurrentPosition, "Expected ';' or a newline, got '" + CurrentPosition.CurrentChar + "'");
                 
                 Advance();
                 if (CurrentTokenType == TokenType.RightBrace)
