@@ -8,17 +8,22 @@ while (true) {
 
     var content = new StringContent(input ?? "shit eater");
     var lexer = new Lexer(content);
+    var lexerResult = lexer.Parse();
 
-    var result = lexer.Parse();
+    if (lexerResult.IsError)
+    {
+        Console.WriteLine(lexerResult.Error);
+        continue;
+    }
 
-    if (result.IsError) {
-        Console.WriteLine(result.Error);
+    var parser = new Parser(lexerResult.Tokens);
+    var parserResult = parser.Parse();
+
+    if (parserResult.IsError)
+    {
+        Console.WriteLine(parserResult.Error);
+        continue;
     }
-    else {
-        Console.WriteLine(result.Tokens.Count + " tokens:");
-        foreach (var item in result.Tokens)
-        {
-            Console.WriteLine("\t" + item);
-        }
-    }
+
+    Console.WriteLine("All good!");
 }

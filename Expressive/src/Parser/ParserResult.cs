@@ -17,6 +17,23 @@ namespace Expressive
 				Error = error;
 				IsError = true;
 			}
+
+			public Result Register(Result other)
+			{
+				if (other.IsError) {
+					IsError = true;
+					Error = other.Error;
+				}
+
+				return this;
+			}
+
+			public Result Fail(Position position, string message)
+			{
+				IsError = true;
+				Error = new SyntaxError(position, message);
+				return this;
+			}
 		}
     }
 }
