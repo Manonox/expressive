@@ -17,7 +17,7 @@ namespace Expressive
         public UnexpectedSymbolError(Position position) : base(position) { }
         public override string ToString()
         {
-            return "Unexpected symbol '" + Position.CurrentChar + "' at " + Position.ToString();
+            return Position.ToString() + ": " + "Unexpected symbol '" + Position.CurrentChar + "'";
         }
     }
 
@@ -27,7 +27,16 @@ namespace Expressive
         public SyntaxError(Position position, string message) : base(position) { Message = message; }
         public override string ToString()
         {
-            return Message + " at " + Position.ToString();
+            return Position.ToString() + ": " + Message;
+        }
+    }
+
+    public class NotImplementedError : Error
+    {
+        public NotImplementedError(Position position) : base(position) { }
+        public override string ToString()
+        {
+            return Position.ToString() + ": " + "Not implemented";
         }
     }
 
@@ -36,7 +45,7 @@ namespace Expressive
         public UnexpectedEOFError(Position position) : base(position) { }
         public override string ToString()
         {
-            return "Unexpected end of file at " + Position.ToString();
+            return Position.ToString() + ": " + "Unexpected end of file";
         }
     }
 }
