@@ -6,7 +6,8 @@ while (true) {
     Console.Write("> "); Console.Out.Flush();
     var input = Console.ReadLine();
 
-    var content = new StringContent(input ?? "shit eater");
+    //var content = new StringContent(input ?? "shit eater");
+    var content = new FileContent(input ?? "main.exr");
     var lexer = new Lexer(content);
     var lexerResult = lexer.Parse();
 
