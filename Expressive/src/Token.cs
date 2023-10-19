@@ -57,7 +57,6 @@ namespace Expressive
 		Mul, Div, // * /
 		Mod, // %
 		Pow, // **
-		Increment, Decrement, // ++ --
 
 		AddAssignment, SubAssignment, // += -=
 		MulAssignment, DivAssignment, // *= /=

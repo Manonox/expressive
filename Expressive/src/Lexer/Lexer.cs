@@ -416,12 +416,6 @@ namespace Expressive
 						return PushToken(TokenType.AddAssignment);
 					}
 
-					if (CurrentChar == '+')
-					{
-						Advance();
-						return PushToken(TokenType.Increment);
-					}
-
 					return PushToken(TokenType.Add);
 
 
@@ -431,12 +425,6 @@ namespace Expressive
 					{
 						Advance();
 						return PushToken(TokenType.SubAssignment);
-					}
-
-					if (CurrentChar == '-')
-					{
-						Advance();
-						return PushToken(TokenType.Decrement);
 					}
 
 					if (CurrentChar == '>')
