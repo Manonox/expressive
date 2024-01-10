@@ -1,30 +1,43 @@
-﻿using Expressive;
+﻿using Antlr4.Runtime;
+using Expressive;
+using Expressive.AST;
 using StringContent = Expressive.StringContent;
 
 
 while (true) {
-    Console.Write("> "); Console.Out.Flush();
-    var input = Console.ReadLine();
+    // Console.Write("> "); Console.Out.Flush();
+    // _ = Console.ReadLine();
 
-    //var content = new StringContent(input ?? "shit eater");
-    var content = new FileContent(input ?? "main.exr");
-    var lexer = new Lexer(content);
-    var lexerResult = lexer.Parse();
+    // var content = new StringContent(input ?? "shit eater");
+    // var content = new FileContent(input ?? "main.exr");
 
-    if (lexerResult.IsError)
+    var content = new FileContent("tests/basic.exr");
+    var lexer = new ExpressiveLexer(CharStreams.fromString(content.Data));
+    var parser = new ExpressiveParser(new CommonTokenStream(lexer));
+    var ast = parser.chunk();
+    
+    if (ast is null)
     {
-        Console.WriteLine(lexerResult.Error);
+        Console.WriteLine("Parse error..?");
         continue;
     }
 
-    var parser = new Parser(lexerResult.Tokens);
-    var parserResult = parser.Parse();
+    var vm = new VM();
+    vm.variables.Add("print", new VM.Value((args) => {
+        var strs = args.Select(x => x.ToString());
+        Console.WriteLine(string.Join(", ", strs));
+        return new();
+    }));
 
-    if (parserResult.IsError)
-    {
-        Console.WriteLine(parserResult.Error);
-        continue;
-    }
+    var visitor = new StatementVisitor() { Vm = vm, Parser = parser };
+    visitor.Visit(ast);
+    
 
     Console.WriteLine("All good!");
+    
+    foreach (var name in vm.variables.Keys) {
+        Console.WriteLine($"{name} = {vm.variables.GetValueOrDefault(name)}");
+    }
+
+    _ = Console.ReadLine();
 }

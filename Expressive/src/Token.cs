@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace Expressive
 {
-	class Token {
+	public class Token {
 		public TokenType Type { get; set; }
 		public string Value { get; set; }
 		public Position Position { get; set; }
@@ -26,54 +26,48 @@ namespace Expressive
 		EOF,
 
 		// Common
-		Identifier,
+		Identifier, // alpha_numeric_123
 		Dot, Comma, // . ,
-		Separator, // ; \n
+		Separator, // ;
 		Assignment, // =
 		LeftParenthesis, RightParenthesis, // ( )
 		LeftBrace, RightBrace, // { }
 		LeftBracket, RightBracket, // [ ]
 		Colon, RightArrow, // : ->
 
-
 		// Literals
-		Bool, Int, Float, String,
-
+		Bool, Number, String,
 
 		// Keywords
-		Let, Global, Null,
-		Is, In,
+		Let, Global,
+		Is, In, As,
 		Fn, Return,
 		If, Else,
 		For, While, Loop,
 		Break, Continue,
-		Self,
 
 
 		// Operators
-		Not, Or, And, // != || &&
-		
-
-		// Math
+		Not, Or, And, // ! || &&
 		
 		Add, Sub, // + -
 		Mul, Div, // * /
 		Mod, // %
 		Pow, // **
 
+		OrAssignment, AndAssignment, // ||=, &&=
+
 		AddAssignment, SubAssignment, // += -=
 		MulAssignment, DivAssignment, // *= /=
 		ModAssignment, // %=
 		PowAssignment, // **=
 
-
-		// Bit
-
-		BitwiseOr, BitwiseAnd, BitwiseXor, // | & ^
+		BitwiseNot, BitwiseOr, BitwiseAnd, BitwiseXor, // ~ | & ^
 		BitwiseLeftShift, BitwiseRightShift, // << >>
 
 		BitwiseOrAssignment, BitwiseAndAssignment, BitwiseXorAssignment, // |= &= ^=
 		BitwiseLeftShiftAssignment, BitwiseRightShiftAssignment, // <<= >>=
+		// BitwiseRightShiftAssignmentSomething, // >>>=
 
 
 		// Comparison
@@ -86,5 +80,6 @@ namespace Expressive
 		// Other
 		
 		Range, // ..
+		InclusiveRange, // ..=
 	}
 }

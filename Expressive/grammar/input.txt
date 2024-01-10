@@ -1,0 +1,13 @@
+fn gaming() {
+	print("cock this balls")
+	return 5
+}
+
+
+let shitting = fn(x) -> sperma { return x - 3.3 }
+
+for i in 0..10 {
+	print(shitting(i))
+}
+
+gaming() gaming()

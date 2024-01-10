@@ -5,7 +5,7 @@ namespace Expressive
 		public string Name { get; }
 		public int Length { get; }
 
-		private string Data { get; }
+		public string Data { get; }
 
         public FileContent(string path)
 		{

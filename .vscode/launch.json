@@ -15,10 +15,23 @@
             "console": "integratedTerminal",
             "stopAtEntry": false
         },
+        
         {
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach"
+        },
+
+        {
+            "name": "Debug ANTLR4 grammar",
+            "type": "antlr-debug",
+            "request": "launch",
+            "input": "${workspaceFolder}/Expressive/grammar/input.txt",
+            "grammar": "${workspaceFolder}/Expressive/grammar/Expressive.g4",
+            // "actionFile": "grammar/exampleActions.js",
+            "startRule": "chunk",
+            "printParseTree": true,
+            "visualParseTree": true
         }
     ]
 }

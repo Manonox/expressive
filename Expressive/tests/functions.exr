@@ -1,0 +1,14 @@
+fn gaming() {
+	print("hmmmm.")
+	return 5
+}
+
+
+funky_func = |x| { x - 3.3 }
+
+for i in 0..10 {
+	print(funky_func(i))
+}
+
+gaming()
+gaming()

@@ -51,7 +51,7 @@ namespace Expressive
 			
 			while (!IsEOF)
 			{
-				while (!IsEOF && " \t".Contains(CurrentChar))
+				while (!IsEOF && " \n\t".Contains(CurrentChar))
 					CurrentPosition.Advance();
 				
 				if (IsEOF) break;
@@ -62,14 +62,12 @@ namespace Expressive
 				}
 			}
 
-			
-			PushToken(TokenType.Separator);
 			PushToken(TokenType.EOF);
 			return new Result(TokenList);
 		}
 
 
-		private Error? ParseIntOrFloatLiteral()
+		private Error? ParseNumberLiteral()
 		{
 			var builder = new StringBuilder();
 
@@ -96,10 +94,10 @@ namespace Expressive
 				if (CurrentChar == '.')
 				{
 					if (NextChar == '.')
-						return PushToken(isFloat ? TokenType.Float : TokenType.Int, builder.ToString());
+						return PushToken(TokenType.Number, builder.ToString());
 
 					if (isFloat)
-						return PushToken(TokenType.Float, builder.ToString());
+						return PushToken(TokenType.Number, builder.ToString());
 
 					waitingForFractDigits = true;
 					dotPosition = new Position(CurrentPosition);
@@ -110,13 +108,13 @@ namespace Expressive
 
 			if (!isFloat)
 			{
-				PushToken(TokenType.Int, builder.ToString());
+				PushToken(TokenType.Number, builder.ToString());
 				if (waitingForFractDigits)
 					PushToken(TokenType.Dot, null, dotPosition);
 				return null;
 			}
 
-			return PushToken(TokenType.Float, builder.ToString());
+			return PushToken(TokenType.Number, builder.ToString());
 		}
 
 
@@ -138,11 +136,10 @@ namespace Expressive
 				// Keywords
 				case "let": return PushToken(TokenType.Let);
 				case "global": return PushToken(TokenType.Global);
-				case "null": return PushToken(TokenType.Null);
 
 				case "is": return PushToken(TokenType.Is);
-				case "self": return PushToken(TokenType.Self);
 				case "in": return PushToken(TokenType.In);
+				case "as": return PushToken(TokenType.As);
 
 				case "fn": return PushToken(TokenType.Fn);
 				case "return": return PushToken(TokenType.Return);
@@ -221,7 +218,7 @@ namespace Expressive
 			TokenBeginPosition = new Position(CurrentPosition);
 
 			if (char.IsDigit(CurrentChar))
-				return ParseIntOrFloatLiteral();
+				return ParseNumberLiteral();
 			
 			if (char.IsLetter(CurrentChar) || CurrentChar == '_')
 				return ParseKeywordIdentifierOrBoolean();
@@ -232,11 +229,9 @@ namespace Expressive
 
 			switch (CurrentChar)
 			{
-				case '\n':
 				case ';':
 					Advance();
 					return PushToken(TokenType.Separator);
-
 
 				case '(':
 					Advance();
@@ -280,11 +275,20 @@ namespace Expressive
 					}
 					return PushToken(TokenType.Not);
 
+				case '~':
+					Advance();
+					return PushToken(TokenType.BitwiseNot);
+
 				case '&':
 					Advance();
 					if (CurrentChar == '&')
 					{
 						Advance();
+						if (CurrentChar == '=')
+						{
+							Advance();
+							return PushToken(TokenType.AndAssignment);
+						}
 						return PushToken(TokenType.And);
 					}
 					if (CurrentChar == '=')
@@ -299,6 +303,11 @@ namespace Expressive
 					if (CurrentChar == '|')
 					{
 						Advance();
+						if (CurrentChar == '=')
+						{
+							Advance();
+							return PushToken(TokenType.OrAssignment);
+						}
 						return PushToken(TokenType.Or);
 					}
 					if (CurrentChar == '=')
@@ -366,6 +375,11 @@ namespace Expressive
 					if (CurrentChar == '.')
 					{
 						Advance();
+						if (CurrentChar == '=')
+						{
+							Advance();
+							return PushToken(TokenType.InclusiveRange);
+						}
 						return PushToken(TokenType.Range);
 					}
 					return PushToken(TokenType.Dot);

@@ -1,0 +1,14 @@
+let x = 2 + 1
+x = 4
+
+let y = x * 3
+print(x + y)
+
+let something = false
+
+if x + y == 16 {
+    something = true
+}
+
+something &&= something
+print("something")
